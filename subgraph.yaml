@@ -1,0 +1,74 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: FTMStaking
+    network: fantom
+    source:
+      address: "0x93cb6D98CF412cc0dfc0BA5A66800ca941276E7B"
+      abi: FTMStaking
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AdminChanged
+        - BeaconUpgraded
+        - LogDepositLimitUpdated
+        - LogDeposited
+        - LogEpochDurationSet
+        - LogLocked
+        - LogMaintenancePausedUpdated
+        - LogUndelegatePausedUpdated
+        - LogUndelegated
+        - LogValidatorPickerSet
+        - LogVaultHarvested
+        - LogVaultOwnerUpdated
+        - LogVaultWithdrawn
+        - LogWithdrawPausedUpdated
+        - LogWithdrawalDelaySet
+        - LogWithdrawn
+        - OwnershipTransferred
+        - Upgraded
+      abis:
+        - name: FTMStaking
+          file: ./abis/FTMStaking.json
+      eventHandlers:
+        - event: AdminChanged(address,address)
+          handler: handleAdminChanged
+        - event: BeaconUpgraded(indexed address)
+          handler: handleBeaconUpgraded
+        - event: LogDepositLimitUpdated(indexed address,uint256,uint256)
+          handler: handleLogDepositLimitUpdated
+        - event: LogDeposited(indexed address,uint256,uint256)
+          handler: handleLogDeposited
+        - event: LogEpochDurationSet(indexed address,uint256)
+          handler: handleLogEpochDurationSet
+        - event: LogLocked(indexed address,uint256,uint256)
+          handler: handleLogLocked
+        - event: LogMaintenancePausedUpdated(indexed address,bool)
+          handler: handleLogMaintenancePausedUpdated
+        - event: LogUndelegatePausedUpdated(indexed address,bool)
+          handler: handleLogUndelegatePausedUpdated
+        - event: LogUndelegated(indexed address,uint256,uint256)
+          handler: handleLogUndelegated
+        - event: LogValidatorPickerSet(indexed address,address)
+          handler: handleLogValidatorPickerSet
+        - event: LogVaultHarvested(indexed address,uint256)
+          handler: handleLogVaultHarvested
+        - event: LogVaultOwnerUpdated(indexed address,address,address)
+          handler: handleLogVaultOwnerUpdated
+        - event: LogVaultWithdrawn(indexed address)
+          handler: handleLogVaultWithdrawn
+        - event: LogWithdrawPausedUpdated(indexed address,bool)
+          handler: handleLogWithdrawPausedUpdated
+        - event: LogWithdrawalDelaySet(indexed address,uint256)
+          handler: handleLogWithdrawalDelaySet
+        - event: LogWithdrawn(indexed address,uint256,uint256)
+          handler: handleLogWithdrawn
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Upgraded(indexed address)
+          handler: handleUpgraded
+      file: ./src/mapping.ts
